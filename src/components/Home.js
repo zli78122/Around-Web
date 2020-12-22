@@ -15,8 +15,10 @@ function Home(props) {
     type: SEARCH_KEY.all,
     keyword: ""
   });
-
   useEffect(() => {
+    // useEffect() <=> didMount() + didUpdate()
+    // the first argument: what to do
+    // the second argument: when to do
     console.log("fetch data");
     // do search the first time -> didMount -> search: {type: all, value: ''}
     // after the first search -> didUpdate -> search: {type: keyword / user, value: value}
