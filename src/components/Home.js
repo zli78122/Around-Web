@@ -4,6 +4,7 @@ import axios from "axios";
 
 import SearchBar from "./SearchBar";
 import PhotoGallery from "./PhotoGallery";
+import CreatePostButton from "./CreatePostButton";
 import { SEARCH_KEY, BASE_URL, TOKEN_KEY } from "../constants";
 
 const { TabPane } = Tabs;
@@ -15,6 +16,12 @@ function Home(props) {
     type: SEARCH_KEY.all,
     keyword: ""
   });
+
+  const handleSearch = (option) => {
+    const { type, keyword } = option;
+    setSearchOption({ type: type, keyword: keyword });
+  };
+
   useEffect(() => {
     // useEffect() <=> didMount() + didUpdate()
     // the first argument: what to do
@@ -95,10 +102,19 @@ function Home(props) {
     }
   };
 
-  const operations = <Button>Upload</Button>;
+  const showPost = (type) => {
+    console.log("type -> ", type);
+    setActiveTab(type);
+
+    setTimeout(() => {
+      setSearchOption({ type: SEARCH_KEY.all, keyword: "" });
+    }, 3000);
+  };
+
+  const operations = <CreatePostButton onShowPost={showPost} />;
   return (
     <div className="home">
-      <SearchBar />
+      <SearchBar handleSearch={handleSearch} />
       <div className="display">
         <Tabs
           onChange={(key) => setActiveTab(key)}
